@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boundary Boss — Cricket Auction Simulator</title>
+<style>
+:root{--bg:#080d18;--panel:#111b2d;--panel2:#17243a;--line:#263751;--text:#f3f7ff;--muted:#9aabc4;--gold:#f5bd4f;--green:#35d39a;--red:#ff6b79;--blue:#66a8ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 15% 0%,#162844 0,transparent 32%),var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Arial,sans-serif}
+button,input,select{font:inherit}button{cursor:pointer;border:0;border-radius:12px;padding:11px 15px;font-weight:800;background:var(--gold);color:#17120a;transition:.15s}button:hover{transform:translateY(-1px);filter:brightness(1.08)}button:disabled{opacity:.35;cursor:not-allowed;transform:none}.secondary{background:#263953;color:var(--text);border:1px solid #3a506e}.danger{background:#512a38;color:#ffdce1;border:1px solid #874252}.success{background:#174c40;color:#d8fff2;border:1px solid #267b65}.small{padding:8px 11px;font-size:.86rem}.wrap{max-width:1240px;margin:auto;padding:22px}.top{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:20px}.brand{display:flex;align-items:center;gap:12px}.logo{width:48px;height:48px;border-radius:15px;background:linear-gradient(145deg,#ffda7c,#e48b25);display:grid;place-items:center;color:#17120a;font-size:25px;box-shadow:0 8px 30px #e99c3440}.brand h1{font-size:1.2rem;margin:0;letter-spacing:.08em}.brand p{margin:3px 0 0;color:var(--muted);font-size:.8rem}.pill{border:1px solid #3a506e;background:#132139;border-radius:999px;padding:8px 12px;color:#c9d8ee;font-size:.82rem}.hero{border:1px solid #344766;border-radius:22px;padding:24px;background:linear-gradient(110deg,#172b49,#111b2d 62%,#2a2631);display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:18px}.eyebrow{color:var(--gold);font-weight:900;font-size:.75rem;letter-spacing:.17em}.hero h2{font-size:clamp(1.7rem,4vw,2.6rem);margin:8px 0}.hero p{color:#b7c5d9;margin:0;max-width:660px;line-height:1.55}.hero-mark{font-size:clamp(3rem,8vw,6rem);filter:drop-shadow(0 8px 22px #f5bd4f55)}.tabs{display:flex;gap:9px;flex-wrap:wrap;margin:16px 0}.tab{background:#17243a;border:1px solid var(--line);color:#c7d5e8}.tab.active{background:var(--gold);color:#17120a;border-color:var(--gold)}.grid{display:grid;grid-template-columns:1.05fr 1.55fr .95fr;gap:15px}.card{background:linear-gradient(180deg,#142138,#101a2b);border:1px solid var(--line);border-radius:18px;padding:17px;min-width:0}.card h3{margin:0 0 14px;font-size:1rem}.muted{color:var(--muted)}.label{font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:#91a6c4;font-weight:800}.value{font-size:1.55rem;font-weight:900;margin-top:4px}.statrow{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:15px}.stat{background:#0d1727;border:1px solid #243650;border-radius:13px;padding:12px}.stat .value{font-size:1.2rem}.player{background:linear-gradient(145deg,#263c5b,#142238 70%);border:1px solid #476080;border-radius:17px;padding:18px;position:relative;overflow:hidden}.player:after{content:"🏏";position:absolute;right:12px;top:12px;font-size:3rem;opacity:.12}.player h2{font-size:1.7rem;margin:8px 0 4px;max-width:80%}.tags{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}.tag{font-size:.72rem;padding:5px 8px;border-radius:999px;background:#304968;color:#dceaff}.price{font-size:2rem;font-weight:950;color:var(--gold);margin:10px 0}.bidrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.bidrow button{flex:1;min-width:100px}.teamlist{display:grid;gap:8px}.team{display:flex;justify-content:space-between;align-items:center;gap:8px;background:#0d1727;border:1px solid #243650;border-radius:12px;padding:10px}.team.active{border-color:var(--gold);box-shadow:0 0 0 1px #f5bd4f55}.team strong{font-size:.88rem}.team small{display:block;color:var(--muted);margin-top:3px}.team .money{text-align:right;color:var(--green);font-weight:900;white-space:nowrap}.field{display:grid;gap:6px;margin:10px 0}.field label{font-size:.78rem;color:#aebed4}.field input,.field select{width:100%;padding:11px;border-radius:10px;border:1px solid #344a68;background:#0b1524;color:var(--text)}.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.player-list{display:grid;gap:8px;max-height:420px;overflow:auto}.player-row{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#0d1727;border:1px solid #263852;border-radius:12px;padding:10px}.player-row strong{font-size:.9rem}.player-row small{display:block;color:var(--muted);margin-top:3px}.player-row .base{font-weight:900;color:var(--gold);white-space:nowrap}.log{max-height:220px;overflow:auto;font-size:.83rem;color:#bdcbe0;line-height:1.6}.log div{border-bottom:1px solid #25364e;padding:6px 0}.hidden{display:none!important}.notice{padding:11px 13px;background:#302a1b;border:1px solid #6b5930;color:#f7df9e;border-radius:12px;font-size:.82rem;line-height:1.45;margin-top:12px}.footer{text-align:center;color:#71839e;font-size:.75rem;margin:24px 0 8px}.modalback{position:fixed;inset:0;background:#020611cc;display:grid;place-items:center;padding:18px;z-index:10}.modal{max-width:520px;width:100%;background:#142138;border:1px solid #496080;border-radius:20px;padding:22px;box-shadow:0 20px 70px #0009}.modal h2{margin:0 0 8px}.modal p{color:#b4c4d9;line-height:1.5}.modal-actions{display:flex;gap:9px;justify-content:flex-end;flex-wrap:wrap;margin-top:16px}.empty{text-align:center;padding:25px;color:var(--muted)}
+@media(max-width:900px){.grid{grid-template-columns:1fr 1fr}.grid .wide{grid-column:1/-1}}@media(max-width:620px){.wrap{padding:13px}.top{align-items:flex-start;flex-direction:column}.hero{padding:18px}.hero-mark{display:none}.grid{grid-template-columns:1fr}.grid .wide{grid-column:auto}.statrow{grid-template-columns:repeat(3,1fr)}.stat{padding:9px}.stat .value{font-size:1rem}.player h2{font-size:1.45rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><div class="logo">🏏</div><div><h1>BOUNDARY BOSS</h1><p>CRICKET AUCTION SIMULATOR</p></div></div>
+    <div class="pill" id="statusPill">Ready to start · Local game</div>
+  </header>
+  <section class="hero">
+    <div><div class="eyebrow">YOUR TEAM. YOUR STRATEGY. YOUR AUCTION.</div><h2>Build a champion squad.</h2><p>Run a World or IPL-style auction, outbid rival teams, manage your purse and create your dream XI. Play solo against computer teams or pass the device between friends.</p></div>
+    <div class="hero-mark">🏆</div>
+  </section>
+  <nav class="tabs">
+    <button class="tab active" data-tab="auction">🔨 Auction Room</button>
+    <button class="tab" data-tab="squad">👥 Squads</button>
+    <button class="tab" data-tab="players">📋 Player Pool</button>
+    <button class="tab" data-tab="setup">⚙️ New Game / Settings</button>
+  </nav>
+
+  <section id="auctionView">
+    <div class="statrow">
+      <div class="stat"><div class="label">Players remaining</div><div class="value" id="remaining">0</div></div>
+      <div class="stat"><div class="label">Sold</div><div class="value" id="soldCount">0</div></div>
+      <div class="stat"><div class="label">Unsold</div><div class="value" id="unsoldCount">0</div></div>
+    </div>
+    <div class="grid">
+      <aside class="card">
+        <h3>🏟️ Teams & purse</h3>
+        <div class="teamlist" id="teamList"></div>
+        <div class="notice" id="turnNotice">Start a new game to begin bidding.</div>
+      </aside>
+      <main class="card wide">
+        <h3>🔴 Live auction</h3>
+        <div id="currentPlayer" class="player">
+          <div class="label">UP NEXT</div><h2>Ready for the auction?</h2><p class="muted">Choose New Game / Settings to set up your auction.</p>
+        </div>
+        <div class="bidrow">
+          <button id="bid20" onclick="placeBid(0.2)" disabled>+ ₹20 L</button>
+          <button id="bid50" onclick="placeBid(0.5)" disabled>+ ₹50 L</button>
+          <button id="bid100" onclick="placeBid(1)" disabled>+ ₹1 Cr</button>
+        </div>
+        <div class="toolbar" style="margin-top:12px">
+          <button class="success" id="sellBtn" onclick="sellPlayer()" disabled>🔔 SOLD</button>
+          <button class="secondary" id="unsoldBtn" onclick="markUnsold()" disabled>Pass / Unsold</button>
+          <button class="secondary" id="nextBtn" onclick="nextPlayer()" disabled>Next player →</button>
+        </div>
+        <div class="notice">Bids are simulated game credits, not real money. IPL mode uses a configurable fictional ₹120 Cr starting purse.</div>
+      </main>
+      <aside class="card">
+        <h3>📣 Auction commentary</h3>
+        <div class="log" id="auctionLog"><div>Welcome to Boundary Boss. Start a game to see the auction action.</div></div>
+        <button class="secondary small" style="margin-top:12px;width:100%" onclick="saveGame()">💾 Save game</button>
+      </aside>
+    </div>
+  </section>
+
+  <section id="squadView" class="hidden">
+    <div class="card"><div class="toolbar" style="justify-content:space-between"><h3>👥 Team squads</h3><select id="squadSelect" onchange="renderSquad()" style="max-width:240px;padding:10px;border-radius:10px;background:#0b1524;color:white;border:1px solid #344a68"></select></div><div id="squadContent"></div></div>
+  </section>
+  <section id="playersView" class="hidden">
+    <div class="card"><div class="toolbar" style="justify-content:space-between"><h3>📋 Player pool</h3><input id="playerSearch" placeholder="Search player / country / role..." oninput="renderPlayers()" style="max-width:320px;padding:10px;border-radius:10px;background:#0b1524;color:white;border:1px solid #344a68"></div><div class="notice">This starter edition includes a curated sample database of well-known international and IPL players. It is not an official or exhaustive live player registry. Add your own players in Settings.</div><div id="playerPool" class="player-list" style="margin-top:13px"></div></div>
+  </section>
+  <section id="setupView" class="hidden">
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
+      <div class="card"><h3>🎮 Start a new auction</h3>
+        <div class="field"><label>Auction mode</label><select id="mode"><option value="ipl">IPL Auction</option><option value="world">World Auction</option></select></div>
+        <div class="field"><label>Playing style</label><select id="style"><option value="solo">Single player vs computer</option><option value="friends">Friends (2–4 teams, pass & play)</option></select></div>
+        <div class="field"><label>Your team / team name (solo mode)</label><input id="myTeam" value="My Super Kings" maxlength="24"></div>
+        <div class="field"><label>Number of teams (friends mode)</label><select id="teamCount"><option>2</option><option>3</option><option>4</option></select></div>
+        <div class="field"><label>Starting purse per team (₹ Crore)</label><input id="purse" type="number" min="10" max="1000" value="120"></div>
+        <div class="field"><label>Players in auction</label><select id="poolChoice"><option value="all">All available players</option><option value="india">India players</option><option value="overseas">Overseas players</option></select></div>
+        <button onclick="startGame()" style="width:100%">🚀 Start auction</button>
+        <button class="secondary" onclick="loadGame()" style="width:100%;margin-top:8px">Load saved game</button>
+      </div>
+      <div class="card"><h3>➕ Add a custom cricketer</h3>
+        <div class="field"><label>Player name</label><input id="newName" placeholder="e.g. Your favourite player"></div>
+        <div class="field"><label>Country</label><input id="newCountry" placeholder="e.g. India"></div>
+        <div class="field"><label>Role</label><select id="newRole"><option>Batter</option><option>Bowler</option><option>All-rounder</option><option>Wicketkeeper</option></select></div>
+        <div class="field"><label>Base price (₹ Crore)</label><input id="newPrice" type="number" min=".2" step=".2" value="1"></div>
+        <button class="success" onclick="addPlayer()" style="width:100%">Add to player database</button>
+        <p class="muted" style="font-size:.8rem;line-height:1.5">Custom players are stored in this browser. For a bigger player list, add entries here or extend the PLAYERS array in the code.</p>
+        <hr style="border-color:#263751;margin:18px 0">
+        <button class="danger" onclick="resetSaved()">Clear saved game</button>
+      </div>
+    </div>
+  </section>
+  <div class="footer">BOUNDARY BOSS · Fan-made entertainment simulator · Not affiliated with BCCI, IPL or any cricket board.</div>
+</div>
+
+<div id="modalBack" class="modalback hidden"><div class="modal"><h2 id="modalTitle">Auction update</h2><p id="modalText"></p><div class="modal-actions"><button class="secondary" onclick="closeModal()">Close</button><button id="modalNext" onclick="closeModal();nextPlayer()">Continue →</button></div></div></div>
+
+<script>
+const PLAYERS = [
+ ["Virat Kohli","India","Batter",2],["Rohit Sharma","India","Batter",2],["Jasprit Bumrah","India","Bowler",2],["Hardik Pandya","India","All-rounder",2],["Ravindra Jadeja","India","All-rounder",2],["Rishabh Pant","India","Wicketkeeper",2],["Suryakumar Yadav","India","Batter",2],["Shubman Gill","India","Batter",2],["KL Rahul","India","Wicketkeeper",2],["Mohammed Siraj","India","Bowler",1],
+ ["MS Dhoni","India","Wicketkeeper",1],["Yashasvi Jaiswal","India","Batter",1],["Rinku Singh","India","Batter",1],["Kuldeep Yadav","India","Bowler",1],["Axar Patel","India","All-rounder",1],["Sanju Samson","India","Wicketkeeper",1],["Arshdeep Singh","India","Bowler",1],["Shreyas Iyer","India","Batter",1],
+ ["Babar Azam","Pakistan","Batter",2],["Shaheen Afridi","Pakistan","Bowler",1],["Mohammad Rizwan","Pakistan","Wicketkeeper",1],["Kane Williamson","New Zealand","Batter",1],["Trent Boult","New Zealand","Bowler",1],["Glenn Phillips","New Zealand","All-rounder",1],["Steve Smith","Australia","Batter",1],["Pat Cummins","Australia","Bowler",2],["Mitchell Starc","Australia","Bowler",2],["Travis Head","Australia","Batter",2],["Glenn Maxwell","Australia","All-rounder",2],["David Warner","Australia","Batter",1],
+ ["Jos Buttler","England","Wicketkeeper",2],["Ben Stokes","England","All-rounder",2],["Joe Root","England","Batter",1],["Jofra Archer","England","Bowler",1],["Phil Salt","England","Wicketkeeper",1],["Rashid Khan","Afghanistan","Bowler",2],["Rahmanullah Gurbaz","Afghanistan","Wicketkeeper",1],["Nicholas Pooran","West Indies","Wicketkeeper",2],["Andre Russell","West Indies","All-rounder",2],["Sunil Narine","West Indies","All-rounder",1],["Shimron Hetmyer","West Indies","Batter",1],["Kagiso Rabada","South Africa","Bowler",1],["Heinrich Klaasen","South Africa","Wicketkeeper",2],["Aiden Markram","South Africa","All-rounder",1],["Quinton de Kock","South Africa","Wicketkeeper",1],["Wanindu Hasaranga","Sri Lanka","All-rounder",1],["Matheesha Pathirana","Sri Lanka","Bowler",1],["Pathum Nissanka","Sri Lanka","Batter",1],["Shakib Al Hasan","Bangladesh","All-rounder",1],["Mustafizur Rahman","Bangladesh","Bowler",1]
+].map((p,i)=>({id:i+1,name:p[0],country:p[1],role:p[2],base:p[3],status:"available",team:null,price:0}));
+const IPL_TEAMS=["Chennai Super Kings","Mumbai Indians","Royal Challengers Bengaluru","Kolkata Knight Riders","Rajasthan Royals","Sunrisers Hyderabad","Delhi Capitals","Punjab Kings","Gujarat Titans","Lucknow Super Giants"];
+const WORLD_TEAMS=["Team Strikers","Team Titans","Team Warriors","Team Royals","Team Legends","Team Challengers"];
+let db=PLAYERS.map(p=>({...p})), state=null;
+const $=id=>document.getElementById(id);
+function money(n){return "₹"+Number(n).toFixed(2)+" Cr"}
+function log(msg){if(!$("auctionLog"))return;let d=document.createElement("div");d.textContent=msg;$("auctionLog").prepend(d)}
+function switchTab(tab){document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));["auction","squad","players","setup"].forEach(v=>$(v+"View").classList.toggle("hidden",v!==tab));if(tab==="squad")renderSquad();if(tab==="players")renderPlayers()}
+document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>switchTab(b.dataset.tab)));
+function startGame(){
+ const mode=$("mode").value, style=$("style").value, purse=Math.max(10,Number($("purse").value)||120);
+ let names=mode==="ipl"?[...IPL_TEAMS]:[...WORLD_TEAMS];
+ let teams=[];
+ if(style==="solo"){teams=[{name:$("myTeam").value.trim()||"My Team",human:true},{name:names[0],human:false},{name:names[1],human:false},{name:names[2],human:false}];}
+ else {let count=Number($("teamCount").value);for(let i=0;i<count;i++)teams.push({name:i===0?($("myTeam").value.trim()||"Player 1"):style==="friends"?(mode==="ipl"?names[i]:WORLD_TEAMS[i]):names[i],human:true});}
+ teams=teams.map((t,i)=>({...t,id:i,purse,spent:0,squad:[]}));
+ let pool=db.filter(p=>p.status==="available"||p.custom).map(p=>({...p,status:"available",team:null,price:0}));
+ const choice=$("poolChoice").value;if(choice==="india")pool=pool.filter(p=>p.country==="India");if(choice==="overseas")pool=pool.filter(p=>p.country!=="India");
+ // Shuffle pool for replayability
+ pool.sort(()=>Math.random()-.5);
+ state={mode,style,purse,teams,pool,index:0,current:null,bid:0,leader:null,sold:[],unsold:[],finished:false,turn:0};
+ $("auctionLog").innerHTML="";log((mode==="ipl"?"IPL":"World")+" auction started. "+teams.length+" teams are ready.");
+ nextPlayer();renderAll();switchTab("auction");$("statusPill").textContent=(mode==="ipl"?"IPL":"World")+" Auction · "+(style==="solo"?"Solo vs AI":"Friends mode");
+}
+function nextPlayer(){
+ if(!state)return;if(state.current&&state.current.status==="bidding")return;
+ if(state.index>=state.pool.length){state.finished=true;state.current=null;renderAll();showModal("Auction completed 🏆","The player pool is complete. Open Squads to review each team's purchases.");return}
+ let p=state.pool[state.index++];p.status="bidding";state.current=p;state.bid=p.base;state.leader=null;state.turn=0;
+ log("Up for auction: "+p.name+" · base price "+money(p.base));
+ renderAll();if(state.style==="solo")setTimeout(aiOpeningBid,650);
+}
+function activeHumanTeam(){if(!state)return null;if(state.style==="solo")return state.teams[0];return state.teams[state.turn%state.teams.length]}
+function placeBid(increment){
+ if(!state||!state.current||state.finished)return;
+ let team=activeHumanTeam(), next=state.leader?state.bid+increment:Math.max(state.current.base,state.bid);
+ if(state.leader&&state.leader.id===team.id){alert("Your team is already the highest bidder. Another team must bid first.");return}
+ if(!state.leader)next=state.current.base;
+ else next=state.bid+increment;
+ if(team.purse-team.spent<next){alert(team.name+" does not have enough purse for this bid.");return}
+ state.bid=next;state.leader=team;state.turn=(state.turn+1)%state.teams.length;
+ log(team.name+" bids "+money(next)+" for "+state.current.name);
+ renderAll();if(state.style==="solo")setTimeout(aiResponse,600);
+}
+function aiOpeningBid(){
+ if(!state||!state.current||state.leader)return;
+ let eligible=state.teams.slice(1).filter(t=>t.purse-t.spent>=state.current.base&&t.squad.length<25);
+ if(eligible.length&&Math.random()<.58){let t=eligible[Math.floor(Math.random()*eligible.length)];state.leader=t;state.bid=state.current.base;log(t.name+" opens at "+money(state.bid));renderAll();}
+}
+function aiResponse(){
+ if(!state||!state.current)return;
+ let rivals=state.teams.slice(1).filter(t=>!state.leader||t.id!==state.leader.id).filter(t=>t.purse-t.spent>=state.bid+.2&&t.squad.length<25);
+ if(rivals.length&&Math.random()<.52){
+  let t=rivals[Math.floor(Math.random()*rivals.length)],inc=Math.random()<.5?.2:.5;
+  state.bid+=inc;state.leader=t;log(t.name+" raises to "+money(state.bid));renderAll();
+ }else if(state.leader&&state.leader.human){log("No computer team raised the bid. You are the highest bidder.");}
+}
+function sellPlayer(){
+ if(!state||!state.current)return;if(!state.leader){showModal("No bids yet","Place a bid first, or mark this player unsold.");return}
+ let p=state.current,t=state.leader;
+ if(t.purse-t.spent<state.bid){showModal("Insufficient purse","This team cannot complete the purchase.");return}
+ p.status="sold";p.team=t.name;p.price=state.bid;t.spent+=state.bid;t.squad.push(p);state.sold.push(p);state.current=null;
+ log("SOLD! "+p.name+" to "+t.name+" for "+money(p.price));
+ renderAll();showModal("SOLD! 🔔",p.name+" joins "+t.name+" for "+money(p.price)+".");
+}
+function markUnsold(){if(!state||!state.current)return;let p=state.current;p.status="unsold";state.unsold.push(p);log(p.name+" goes UNSOLD.");state.current=null;renderAll();showModal("Unsold","No team bought "+p.name+" in this round.");}
+function showModal(title,body){$("modalTitle").textContent=title;$("modalText").textContent=body;$("modalBack").classList.remove("hidden");$("modalNext").style.display=state&&state.index<state.pool.length?"inline-block":"none"}
+function closeModal(){$("modalBack").classList.add("hidden")}
+function renderAll(){renderTeams();renderCurrent();$("remaining").textContent=state?Math.max(0,state.pool.length-state.index):0;$("soldCount").textContent=state?state.sold.length:0;$("unsoldCount").textContent=state?state.unsold.length:0;$("nextBtn").disabled=!state||!state.current===false}
+function renderTeams(){
+ if(!state){$("teamList").innerHTML="";return}
+ $("teamList").innerHTML=state.teams.map(t=>`<div class="team ${state.leader&&state.leader.id===t.id?"active":""}"><div><strong>${esc(t.name)}</strong><small>${t.squad.length} players · spent ${money(t.spent)}</small></div><div class="money">${money(t.purse-t.spent)}<small>left</small></div></div>`).join("");
+ let turn=activeHumanTeam();$("turnNotice").textContent=state.style==="solo"?"You control "+state.teams[0].name+". Computer teams bid automatically.": "Next bidder: "+(turn?turn.name:"—")+". Pass the device to the next player.";
+}
+function renderCurrent(){
+ let p=state&&state.current;
+ $("currentPlayer").innerHTML=p?`<div class="label">PLAYER ${state.index} OF ${state.pool.length} · ${esc(p.country.toUpperCase())}</div><h2>${esc(p.name)}</h2><div class="tags"><span class="tag">${esc(p.country)}</span><span class="tag">${esc(p.role)}</span><span class="tag">${p.custom?"Custom player":"Auction player"}</span></div><div class="label">BASE PRICE</div><div>${money(p.base)}</div><div class="label" style="margin-top:12px">CURRENT BID</div><div class="price">${money(state.bid)}</div><div class="muted">Highest bidder: <strong>${state.leader?esc(state.leader.name):"No bids yet"}</strong></div>`:`<div class="label">AUCTION STATUS</div><h2>${state&&state.finished?"Auction complete!":"No active player"}</h2><p class="muted">${state&&state.finished?"Your squads are ready. Review the results in Squads.":"Start a new game to begin."}</p>`;
+ ["bid20","bid50","bid100","sellBtn","unsoldBtn"].forEach(id=>$(id).disabled=!p);
+ $("nextBtn").disabled=!state||!state.current&&(!state.finished)&&state.index>=state.pool.length;
+}
+function renderSquad(){
+ if(!state){$("squadSelect").innerHTML="";$("squadContent").innerHTML='<div class="empty">Start a game first.</div>';return}
+ $("squadSelect").innerHTML=state.teams.map(t=>`<option value="${t.id}">${esc(t.name)}</option>`).join("");renderSquadContent();
+}
+function renderSquadContent(){let t=state.teams[Number($("squadSelect").value)||0];if(!t)return;$("squadContent").innerHTML=`<div class="statrow" style="margin-top:14px"><div class="stat"><div class="label">Players</div><div class="value">${t.squad.length}</div></div><div class="stat"><div class="label">Spent</div><div class="value">${money(t.spent)}</div></div><div class="stat"><div class="label">Purse left</div><div class="value">${money(t.purse-t.spent)}</div></div></div>${t.squad.length?'<div class="player-list">'+t.squad.map(p=>`<div class="player-row"><div><strong>${esc(p.name)}</strong><small>${esc(p.country)} · ${esc(p.role)}</small></div><div class="base">${money(p.price)}</div></div>`).join("")+'</div>':'<div class="empty">No players purchased yet. Head to the auction room and start bidding!</div>'}`}
+function renderSquad(){if(!state){$("squadSelect").innerHTML="";$("squadContent").innerHTML='<div class="empty">Start a game first.</div>';return}$("squadSelect").innerHTML=state.teams.map(t=>`<option value="${t.id}">${esc(t.name)}</option>`).join("");renderSquadContent()}
+$("squadSelect").addEventListener("change",renderSquadContent);
+function renderPlayers(){let q=($("playerSearch").value||"").toLowerCase();let list=db.filter(p=>(p.name+" "+p.country+" "+p.role).toLowerCase().includes(q));$("playerPool").innerHTML=list.map(p=>`<div class="player-row"><div><strong>${esc(p.name)}</strong><small>${esc(p.country)} · ${esc(p.role)}${p.custom?" · Custom":""}</small></div><div class="base">${money(p.base)}</div></div>`).join("")||'<div class="empty">No matching players.</div>'}
+function addPlayer(){let name=$("newName").value.trim(),country=$("newCountry").value.trim(),role=$("newRole").value,base=Number($("newPrice").value);if(!name||!country||!base||base<=0){alert("Enter a player name, country and valid base price.");return}db.push({id:Date.now(),name,country,role,base,status:"available",team:null,price:0,custom:true});$("newName").value="";$("newCountry").value="";renderPlayers();alert(name+" added to the player database.");}
+function saveGame(){if(!state){alert("No game to save yet.");return}localStorage.setItem("boundaryBossSave",JSON.stringify({state,db}));alert("Game saved in this browser.");}
+function loadGame(){let raw=localStorage.getItem("boundaryBossSave");if(!raw){alert("No saved game found in this browser.");return}try{let data=JSON.parse(raw);state=data.state;db=data.db||db;renderAll();switchTab("auction");log("Saved game loaded.");}catch(e){alert("Could not load this save file.");}}
+function resetSaved(){if(confirm("Delete the saved game from this browser?")){localStorage.removeItem("boundaryBossSave");alert("Saved game cleared.");}}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+renderPlayers();
+</script>
+</body>
+</html>
